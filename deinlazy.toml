@@ -1,0 +1,66 @@
+[[plugins]]
+repo = 'Shougo/context_filetype.vim'
+
+[[plugins]]
+repo='Shougo/deoplete.nvim'
+depends = 'context_filetype.vim'
+if = "has('nvim')"
+    on_event = 'InsertEnter'
+    hook_source = '''
+        let g:deoplete#enable_at_startup = 1
+
+	call deoplete#custom#source('buffer',
+	\ 'min_pattern_length', 1)
+
+        inoremap <silent><expr> <TAB>
+        \ pumvisible() ? "\<C-n>" :
+        \ <SID>check_back_space() ? "\<TAB>" :
+        \ deoplete#mappings#manual_complete()
+		function! s:check_back_space() abort "{{{
+		let col = col('.') - 1
+		return !col || getline('.')[col - 1]  =~ '\s'
+		endfunction"}}}
+        inoremap <expr><CR> pumvisible() ?
+        \ deoplete#close_popup() : "<CR>"
+
+
+    '''
+#html
+[[plugins]]
+repo = 'mattn/emmet-vim'
+on_ft = ['css', 'html', 'xhtml', 'php']
+hook_source = '''
+    let g:user_emmet_mode = 'nv'
+    let g:user_emmet_settings = {
+        \ 'variables': {
+        \ 'lang' : 'ja'
+        \}
+        \}
+'''
+
+#lsp
+[[plugins]]
+repo = 'autozimu/LanguageClient-neovim'
+rev = 'next'
+build = 'bash install.sh'
+hook_source = '''
+'''
+
+[[plugins]]
+repo = 'gregsexton/MatchTag'
+on_ft = ['html', 'xhtml']
+
+[[plugins]]
+repo = 'SirVer/ultisnips'
+on_event = 'InsertEnter'
+hook_add = '''
+       let  g:UltiSnipsExpandTrigger = "<C-t>" 
+       let  g:UltiSnipsJumpForwardTrigger = "<C-j>"
+       let  g:UltiSnipsJumpBackwardTrigger= "<C-k>"
+'''
+
+[[plugins]]
+repo = 'scrooloose/nerdtree'
+
+[[plugins]]
+repo = 'Shougo/denite.nvim'
