@@ -13,10 +13,10 @@ elseif has('patch-7.4.1778')
 	set guicolors
 endif
 " Add the dein installation directory into runtimepath
-let s:dein_cache_path = expand('~/.cache/nvim/dein')
+let s:dein_cache_path = expand($HOME.'/.cache/nvim')
 let s:dein_dir = s:dein_cache_path
 	\ .'/repos/github.com/repos/github.com/Shougo/dein.vim'
-set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
+set runtimepath+=dein_dir
 
 if &runtimepath !~ '/dein.vim/'
 	if !isdirectory(s:dein_dir)
@@ -28,10 +28,10 @@ endif
 if dein#load_state(s:dein_cache_path)
   call dein#begin(s:dein_cache_path)
 
-  call dein#add('~/.cache/nvim/dein/repos/github.com/Shougo/dein.vim')
-  call dein#load_toml('~/.config/nvim/dein.toml', {'lazy' : 0})
-  call dein#load_toml('~/.config/nvim/deinlazy.toml', {'lazy' : 1})
-  call dein#load_toml('~/.config/nvim/deinft.toml')
+  call dein#add($HOME.'/.cache/nvim/dein/repos/github.com/Shougo/dein.vim')
+  call dein#load_toml($HOME.'/.config/nvim/dein.toml', {'lazy' : 0})
+  call dein#load_toml($HOME.'/.config/nvim/deinlazy.toml', {'lazy' : 1})
+  call dein#load_toml($HOME.'/.config/nvim/deinft.toml')
   
   call dein#end()
   call dein#save_state()
