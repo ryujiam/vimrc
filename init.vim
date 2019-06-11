@@ -12,6 +12,13 @@ if has('nvim')
 elseif has('patch-7.4.1778')
 	set guicolors
 endif
+if has('unix') || has('mac')
+    let s:conf_dir = expand($HOME. '/.config/nvim/')
+    let g:pyenv_path = expand($PYENV_ROOT. '/shims/python')
+elseif has('win64') || has('win32')
+    let s:conf_dir = expand($LOCALAPPDATE. '/nvim/')
+    let g:pyenv_path = expand($LOCALAPPDATE. '/Programs/Python/Python37/')
+endif
 " Add the dein installation directory into runtimepath
 let s:dein_cache_path = expand($HOME.'/.cache/nvim')
 let s:dein_dir = s:dein_cache_path
@@ -28,18 +35,20 @@ endif
 if dein#load_state(s:dein_cache_path)
   call dein#begin(s:dein_cache_path)
 
-  call dein#add($HOME.'/.cache/nvim/dein/repos/github.com/Shougo/dein.vim')
-  call dein#load_toml($HOME.'/.config/nvim/dein.toml', {'lazy' : 0})
-  call dein#load_toml($HOME.'/.config/nvim/deinlazy.toml', {'lazy' : 1})
-  call dein#load_toml($HOME.'/.config/nvim/deinft.toml')
+  let s:dein_conf_path = expand(s:conf_dir. '/dein.toml')
+  let s:dein_lazy_conf_path = expand(s:conf_dir. '/deinlazy.toml')
+  let s:dein_ft_conf_path = expand(s:conf_dir. '/deinft.toml')
+
+  call dein#add(s:dein_dir)
+  call dein#load_toml(s:dein_conf_path, {'lazy' : 0})
+  call dein#load_toml(s:dein_lazy_conf_path, {'lazy' : 1})
+  call dein#load_toml(s:dein_ft_conf_path)
   
   call dein#end()
   call dein#save_state()
 endif
 
-"let g:python_host_prog=''
-"let g:python3_host_prog= expand('/Users/sakamotoryuuji/.pyenv/shims/python')
-let g:python3_host_prog= expand($PYENV_ROOT.'/shims/python')
+let g:python3_host_prog= g:pyenv_path
 
 if dein#check_install()
 	call dein#install()
