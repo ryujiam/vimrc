@@ -13,19 +13,18 @@ elseif has('patch-7.4.1778')
 	set guicolors
 endif
 if has('unix') || has('mac')
-    let s:conf_dir = expand($HOME. '/.config/nvim/')
+    let s:conf_dir = expand($HOME. '/.config/nvim')
     let g:pyenv_path = expand($PYENV_ROOT. '/shims/python')
 elseif has('win64') || has('win32')
-    let s:conf_dir = expand($LOCALAPPDATE. '/nvim/')
-    let g:pyenv_path = expand($LOCALAPPDATE. '/Programs/Python/Python37/')
+    let s:conf_dir = expand($LOCALAPPDATE. '/nvim')
+    let g:pyenv_path = expand($LOCALAPPDATE. '/Programs/Python/Python37/python')
 endif
 " Add the dein installation directory into runtimepath
 let s:dein_cache_path = expand($HOME.'/.cache/nvim')
-let s:dein_dir = s:dein_cache_path
-	\ .'/repos/github.com/repos/github.com/Shougo/dein.vim'
-set runtimepath+=dein_dir
+let s:dein_dir = expand(s:dein_cache_path
+	\ .'/repos/github.com/Shougo/dein.vim')
 
-if &runtimepath !~ '/dein.vim/'
+if &runtimepath !~# '/dein.vim'
 	if !isdirectory(s:dein_dir)
 		execute '!git clone https://github.com/Shougo/dein.vim' s:dein_dir
 	endif
@@ -57,6 +56,7 @@ endif
 runtime! ./options.rc.vim
 runtime! ./keymap.rc.vim
 runtime! ./functions.rc.vim
+
 
 "ポップアップ非表示
 autocmd FileType python setlocal completeopt-=preview
