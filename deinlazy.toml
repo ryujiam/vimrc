@@ -64,3 +64,22 @@ repo = 'scrooloose/nerdtree'
 
 [[plugins]]
 repo = 'Shougo/denite.nvim'
+
+[[plugins]]
+repo = 'godlygeek/tabular'
+
+[[plugins]]
+repo = 'plasticboy/vim-markdown'
+on_ft = ['markdown']
+hook_source = '''
+'''
+
+[[plugins]]
+repo = 'iamcco/markdown-preview.nvim'
+on_ft = ['markdown']
+build = 'cd app & yarn install'
+hook_source = '''
+    nnoremap [markdownpreview]s :MarkdownPreview<CR>
+    nnoremap [markdownpreview]q :MarkdownPreviewStop<CR>
+'''
+
