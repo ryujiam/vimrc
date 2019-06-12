@@ -24,6 +24,13 @@ nnoremap sq :<C-u>q<CR>
 nnoremap sQ :<C-u>bd<CR>
 noremap <C-j> 10j
 noremap <C-k> 10k
+nnoremap ; :
+nnoremap : ;
 
 "インサートモード
 inoremap <silent> jj <ESC>:<C-u>w<CR>
+
+"key mapping
+nnoremap [markdownpreview] <Nop>
+nmap m [markdownpreview]
+
