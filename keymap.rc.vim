@@ -34,3 +34,6 @@ inoremap <silent> jj <ESC>:<C-u>w<CR>
 nnoremap [markdownpreview] <Nop>
 nmap m [markdownpreview]
 
+nnoremap [denite] <Nop>
+nmap <C-d> [denite]
+

@@ -31,6 +31,10 @@ if &runtimepath !~# '/dein.vim'
 	execute 'set runtimepath+=' . fnamemodify(s:dein_dir, ':p')
 endif
 
+if &runtimepath !~# '/rplugin/python3'
+        execute 'set runtimepath+=' . fnamemodify(s:conf_dir.'/rplugin/python3', ':p')
+endif
+
 if dein#load_state(s:dein_cache_path)
   call dein#begin(s:dein_cache_path)
 
