@@ -66,6 +66,7 @@ repo = 'scrooloose/nerdtree'
 repo = 'Shougo/denite.nvim'
 hook_source='''
     autocmd FileType denite call s:denite_my_settings()
+    autocmd FileType denite call plugin#denite#denite_my_settings()
     function! s:denite_my_settings() abort
 	  nnoremap <silent><buffer><expr> <CR>
 	  \ denite#do_map('do_action')
@@ -90,6 +91,12 @@ hook_add='''
     nnoremap <silent> [denite]r :<C-u>Denite -resume -buffer-name=search-buffer-denite<CR>
     nnoremap <silent> [denite]n :<C-u>Denite -resume -buffer-name=search-buffer-denite -cursor-pos=+1 -immediately<CR>
     nnoremap <silent> [denite]p :<C-u>Denite -resume -buffer-name=search-buffer-denite -cursor-pos=-1 -immediately<CR>
+'''
+
+[[plugins]]
+repo = 'Shougo/defx.nvim'
+hook_source='''
+    autocmd FileType defx call plugin#defx#defx_my_settings()
 '''
 
 [[plugins]]
