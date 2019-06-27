@@ -35,5 +35,5 @@ nnoremap [markdownpreview] <Nop>
 nmap m [markdownpreview]
 
 nnoremap [denite] <Nop>
-nmap <C-d> [denite]
+nmap <C-u> [denite]
 
