@@ -61,6 +61,10 @@ runtime! ./options.rc.vim
 runtime! ./keymap.rc.vim
 runtime! ./functions.rc.vim
 
+"plugin編集用ファイル
+if &runtimepath !~# '/plugins'
+        execute 'set runtimepath+='. fnamemodify(s:conf_dir.'/plugins', ':p')
+endif
 
 "ポップアップ非表示
 autocmd FileType python setlocal completeopt-=preview
