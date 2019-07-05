@@ -53,7 +53,7 @@ on_ft = ['html', 'xhtml']
 [[plugins]]
 repo = 'nathanaelkane/vim-indent-guides'
 hook_source='''
-    let g:indent_guides_enable_on_vim_startup
+    let g:indent_guides_enable_on_vim_startup = 1
 '''
 
 [[plugins]]
