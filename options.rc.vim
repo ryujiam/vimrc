@@ -21,8 +21,6 @@ set smartindent
 syntax on
 colorscheme molokai
 
-set list
-set listchars=tab:»-
  
  
     
