@@ -43,7 +43,28 @@ hook_source = '''
 repo = 'autozimu/LanguageClient-neovim'
 rev = 'next'
 build = 'bash install.sh'
-hook_source = '''
+hook_add= '''
+    set hidden
+    let g:LanguageClient_autoStart = 1
+    function! s:lsp()
+        if has_key(g:LanguageClient_serverCommands, &filetype)
+            nnoremap <buffer><silent> <Space>ld :call LanguageClient#textDocument_definition()<CR>
+            nnoremap <buffer><silent> <Space>lr :call LanguageClient#textDocument_rename()<CR>
+            nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+            nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+            nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+        endif
+    endfunction
+        
+    augroup my-lsp
+        autocmd!
+        autocmd FileType * call s:lsp()
+    augroup END
+    let g:LanguageClient_serverCommands = {
+        \ 'rust': ['rustup', 'run', 'stable', 'rls'],
+        \ 'php': ['intelephense', '--stdio'], 
+        \ 'python': ['pyls']
+        \ }
 '''
 
 [[plugins]]
