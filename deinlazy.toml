@@ -43,9 +43,9 @@ hook_source = '''
 repo = 'autozimu/LanguageClient-neovim'
 rev = 'next'
 build = 'bash install.sh'
-hook_add= '''
+on_ft = ['python', 'php']
+hook_source= '''
     set hidden
-    let g:LanguageClient_autoStart = 1
     function! s:lsp()
         if has_key(g:LanguageClient_serverCommands, &filetype)
             nnoremap <buffer><silent> <Space>ld :call LanguageClient#textDocument_definition()<CR>
