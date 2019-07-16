@@ -48,11 +48,9 @@ hook_source= '''
     set hidden
     function! s:lsp()
         if has_key(g:LanguageClient_serverCommands, &filetype)
-            nnoremap <buffer><silent> <Space>ld :call LanguageClient#textDocument_definition()<CR>
+            nnoremap <buffer><silent> <Space>l] :call LanguageClient#textDocument_definition()<CR>
             nnoremap <buffer><silent> <Space>lr :call LanguageClient#textDocument_rename()<CR>
-            nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-            nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-            nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+            nnoremap <buffer><silent> <Space>l[ :call LanguageClient#textDocument_references()<CR>
         endif
     endfunction
         
@@ -60,6 +58,7 @@ hook_source= '''
         autocmd!
         autocmd FileType * call s:lsp()
     augroup END
+    let g:LanguageClient_rootMarkers = ['.git']
     let g:LanguageClient_serverCommands = {
         \ 'rust': ['rustup', 'run', 'stable', 'rls'],
         \ 'php': ['intelephense', '--stdio'], 
