@@ -21,6 +21,11 @@ set smartindent
 syntax on
 colorscheme molokai
 
- 
+"fzf
+if has('mac')
+    execute 'set runtimepath+=' . fnamemodify('/usr/local/opt/fzf', ':p')
+elseif has('unix')
+    execute 'set runtimepath+=' . fnamemodify('~/.fzf', ':p')
+endif
  
     

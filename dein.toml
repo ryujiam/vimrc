@@ -54,3 +54,22 @@ hook_add='''
     let g:airline#extensions#tabline#enabled = 1
 '''
 
+[[plugins]]
+repo = 'lighttiger2505/gtags.vim'
+hook_add = '''
+    " Options
+    let g:Gtags_Auto_Map = 0
+    let g:Gtags_OpenQuickfixWindow = 1
+    " Keymap
+    " Show definetion of function cousor word on quickfix
+    nnoremap <silent> <Space>g] :<C-u>exe("Gtags ".expand('<cword>'))<CR>
+    " Show reference of cousor word on quickfix
+    nnoremap <silent> <Space>g[ :<C-u>exe("Gtags -r ".expand('<cword>'))<CR>
+'''
+
+# git plugin
+[[plugins]]
+repo = "airblade/vim-gitgutter"
+
+[[plugins]]
+repo = "tpope/vim-fugitive"
