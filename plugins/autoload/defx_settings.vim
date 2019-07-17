@@ -1,6 +1,6 @@
 function! defx_settings#my_settings() abort
-    call s:mappings()
     call s:DefxOptions()
+    call s:mappings()
     call s:denite_mappings()
 endfunction
 

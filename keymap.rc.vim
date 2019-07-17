@@ -37,3 +37,5 @@ nmap m [markdownpreview]
 nnoremap [denite] <Nop>
 nmap <C-u> [denite]
 
+nnoremap [ale] <Nop>
+nmap <C-a> [ale]

@@ -22,11 +22,15 @@ hook_add = '''
    call submode#map('window_move', 'n', '', '+', '<C-w>+')
    call submode#map('window_move', 'n', '', '-', '<C-w>-')
 
-   call submode#enter_with('bufmove', 'n', '', '<Space>ss', '<Nop>')
+   call submode#enter_with('bufmove', 'n', '', '<Space>sb', '<Nop>')
    call submode#map('bufmove', 'n', '', 'j', '<C-w>j')
    call submode#map('bufmove', 'n', '', 'k', '<C-w>k')
    call submode#map('bufmove', 'n', '', 'l', '<C-w>l')
    call submode#map('bufmove', 'n', '', 'h', '<C-w>h')
+
+   call submode#enter_with('tabmove', 'n', '', '<Space>st', '<Nop>')
+   call submode#map('bufmove', 'n', '', 'n', ':tabnext<CR>')
+   call submode#map('bufmove', 'n', '', 'p', ':tabprevious<CR>')
 '''
 
 [[plugins]]
@@ -35,6 +39,8 @@ repo="honza/vim-snippets"
 [[plugins]]
 repo='w0rp/ale'
 hook_add='''
+ nnoremap <silent> [ale]p <Plug>(ale_previous_error)
+ nnoremap <silent> [ale]n <Plug>(ale_next_error)
  let g:ale_lint_on_text_changed = 0 
  let g:ale_sign_error ='✖'
  let g:ale_sign_warning = '⚠' 
