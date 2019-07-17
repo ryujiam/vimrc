@@ -53,7 +53,7 @@ hook_add='''
  let g:ale_php_phpcs_executable = s:php_linter_path . "/phpcs"
  let g:ale_linters = { 
      \'python':['flake8'],
-     \'php':['phpcs', 'phpmd', 'php -l'],
+     \'php':['phpcs', 'phpmd', 'php'],
      \}
 '''
 
