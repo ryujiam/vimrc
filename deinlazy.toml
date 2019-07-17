@@ -118,6 +118,9 @@ hook_add='''
     nnoremap <silent> [denite]r :<C-u>Denite -resume -buffer-name=search-buffer-denite<CR>
     nnoremap <silent> [denite]n :<C-u>Denite -resume -buffer-name=search-buffer-denite -cursor-pos=+1 -immediately<CR>
     nnoremap <silent> [denite]p :<C-u>Denite -resume -buffer-name=search-buffer-denite -cursor-pos=-1 -immediately<CR>
+    nnoremap <silent> [denite]f :<C-u>Denite file/rec -start-filter<CR>
+    nnoremap <silent> [denite]p :<C-u>DeniteProjectDir file/rec -start-filter<CR>
+    nnoremap <silent> [denite]b :<C-u>Denite buffer -start-filter<CR>
 '''
 
 [[plugins]]
