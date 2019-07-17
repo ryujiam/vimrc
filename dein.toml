@@ -42,9 +42,18 @@ hook_add='''
  let g:ale_fixers = {
      \'java':['google_java_format'],
      \}
+ function! s:execute_path() abort
+	if has('unix')
+	    let s:php_bin_path = expand($HOME . "/.composer/vendor/bin")
+        endif
+	return s:php_bin_path
+ endfunction 
+ let s:php_linter_path = s:execute_path()
+ let g:ale_php_phpmd_executable = s:php_linter_path . "/phpmd"
+ let g:ale_php_phpcs_executable = s:php_linter_path . "/phpcs"
  let g:ale_linters = { 
      \'python':['flake8'],
-     \'php':['phpcs'],
+     \'php':['phpcs', 'phpmd', 'php -l'],
      \}
 '''
 
