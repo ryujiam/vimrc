@@ -58,6 +58,7 @@ hook_source= '''
         autocmd!
         autocmd FileType * call s:lsp()
     augroup END
+    let g:LanguageClient_diagnosticsEnable = 0
     let g:LanguageClient_rootMarkers = ['.git']
     let g:LanguageClient_serverCommands = {
         \ 'rust': ['rustup', 'run', 'stable', 'rls'],
