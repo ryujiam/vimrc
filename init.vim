@@ -3,6 +3,10 @@ if &compatible
   set nocompatible
 endif
 
+function! s:get_dependency_runtimepath(path) abort
+    return (has('unix')||has('mac')) ? fnamemodify(a:path, ':p') : a:path
+endfunction
+
 "True Color
 if has('nvim')
 	let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -16,8 +20,8 @@ if has('unix') || has('mac')
     let s:conf_dir = expand($HOME. '/.config/nvim')
     let g:pyenv_path = expand($PYENV_ROOT. '/shims/python')
 elseif has('win64') || has('win32')
-    let s:conf_dir = expand($LOCALAPPDATE. '/nvim')
-    let g:pyenv_path = expand($LOCALAPPDATE. '/Programs/Python/Python37/python')
+    let s:conf_dir = expand($LOCALAPPDATA. '/nvim')
+    let g:pyenv_path = expand($LOCALAPPDATA. '/Programs/Python/Python37/python')
 endif
 " Add the dein installation directory into runtimepath
 let s:dein_cache_path = expand($HOME.'/.cache/nvim')
@@ -28,11 +32,11 @@ if &runtimepath !~# '/dein.vim'
 	if !isdirectory(s:dein_dir)
 		execute '!git clone https://github.com/Shougo/dein.vim' s:dein_dir
 	endif
-	execute 'set runtimepath+=' . fnamemodify(s:dein_dir, ':p')
+	execute 'set runtimepath+=' . s:get_dependency_runtimepath(s:dein_dir)
 endif
 
 if &runtimepath !~# '/rplugin/python3'
-        execute 'set runtimepath+=' . fnamemodify(s:conf_dir.'/rplugin/python3', ':p')
+	execute 'set runtimepath+=' . s:get_dependency_runtimepath(s:dein_dir.'/rplugin/python3')
 endif
 
 if dein#load_state(s:dein_cache_path)
@@ -63,7 +67,7 @@ runtime! ./functions.rc.vim
 
 "plugin編集用ファイル
 if &runtimepath !~# '/plugins'
-        execute 'set runtimepath+='. fnamemodify(s:conf_dir.'/plugins', ':p')
+	execute 'set runtimepath+=' . s:get_dependency_runtimepath(s:conf_dir.'/plugins')
 endif
 
 "ポップアップ非表示
@@ -71,3 +75,4 @@ autocmd FileType python setlocal completeopt-=preview
 
 filetype plugin indent on
 syntax enable
+
