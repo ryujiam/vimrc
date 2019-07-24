@@ -36,7 +36,8 @@ if &runtimepath !~# '/dein.vim'
 endif
 
 if &runtimepath !~# '/rplugin/python3'
-	execute 'set runtimepath+=' . s:get_dependency_runtimepath(s:dein_dir.'/rplugin/python3')
+        let s:dein_plugin_dir = expand(s:dein_dir.'/rplugin/python3')
+	execute 'set runtimepath+=' . s:get_dependency_runtimepath(s:dein_plugin_dir)
 endif
 
 if dein#load_state(s:dein_cache_path)
@@ -67,7 +68,8 @@ runtime! ./functions.rc.vim
 
 "plugin編集用ファイル
 if &runtimepath !~# '/plugins'
-	execute 'set runtimepath+=' . s:get_dependency_runtimepath(s:conf_dir.'/plugins')
+        let s:my_plugin_dir = expand(s:conf_dir.'/plugins')
+	execute 'set runtimepath+=' . s:get_dependency_runtimepath(s:my_plugin_dir)
 endif
 
 "ポップアップ非表示

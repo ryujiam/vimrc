@@ -8,6 +8,8 @@ hook_add = '''
   set background=dark
 '''
 
+[[plugins]]
+repo = 'challenger-deep-theme/vim'
 
 [[plugins]]
 repo = 'kana/vim-submode'
@@ -62,7 +64,6 @@ hook_add='''
      \'php':['phpcs', 'phpmd', 'php'],
      \}
 '''
-
 [[plugins]]
 repo='vim-airline/vim-airline'
 hook_add='''

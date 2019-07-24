@@ -19,7 +19,7 @@ set smartindent
 
 "カラースキーム
 syntax on
-colorscheme molokai
+colorscheme challenger_deep
 
 "fzf
 if has('mac')
