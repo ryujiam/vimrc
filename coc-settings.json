@@ -1,0 +1,6 @@
+{
+    "coc.source.word.enable": false,
+    "tabnine.triggers": [
+        "."
+    ]
+}

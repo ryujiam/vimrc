@@ -1,30 +1,6 @@
 [[plugins]]
 repo = 'Shougo/context_filetype.vim'
 
-[[plugins]]
-repo='Shougo/deoplete.nvim'
-depends = 'context_filetype.vim'
-if = "has('nvim')"
-    on_event = 'InsertEnter'
-    hook_source = '''
-        let g:deoplete#enable_at_startup = 1
-
-	call deoplete#custom#source('buffer',
-	\ 'min_pattern_length', 1)
-
-        inoremap <silent><expr> <TAB>
-        \ pumvisible() ? "\<C-n>" :
-        \ <SID>check_back_space() ? "\<TAB>" :
-        \ deoplete#mappings#manual_complete()
-		function! s:check_back_space() abort "{{{
-		let col = col('.') - 1
-		return !col || getline('.')[col - 1]  =~ '\s'
-		endfunction"}}}
-        inoremap <expr><CR> pumvisible() ?
-        \ deoplete#close_popup() : "<CR>"
-
-
-    '''
 #html
 [[plugins]]
 repo = 'mattn/emmet-vim'
@@ -40,31 +16,18 @@ hook_source = '''
 
 #lsp
 [[plugins]]
-repo = 'autozimu/LanguageClient-neovim'
-rev = 'next'
-build = 'bash install.sh'
-on_ft = ['python', 'php']
-hook_source= '''
+repo = 'neoclide/coc.nvim'
+build = './install.sh nightly'
+on_if = 'has("nvim")'
+hook_source = '''
     set hidden
-    function! s:lsp()
-        if has_key(g:LanguageClient_serverCommands, &filetype)
-            nnoremap <buffer><silent> <Space>l] :call LanguageClient#textDocument_definition()<CR>
-            nnoremap <buffer><silent> <Space>lr :call LanguageClient#textDocument_rename()<CR>
-            nnoremap <buffer><silent> <Space>l[ :call LanguageClient#textDocument_references()<CR>
-        endif
-    endfunction
-        
-    augroup my-lsp
-        autocmd!
-        autocmd FileType * call s:lsp()
-    augroup END
-    let g:LanguageClient_diagnosticsEnable = 0
-    let g:LanguageClient_rootMarkers = ['.git']
-    let g:LanguageClient_serverCommands = {
-        \ 'rust': ['rustup', 'run', 'stable', 'rls'],
-        \ 'php': ['intelephense', '--stdio'], 
-        \ 'python': ['pyls']
-        \ }
+    nmap <silent> <SPACE>l[ <Plug>(coc-definition)
+    nmap <silent> <SPACE>l] <Plug>(coc-references)
+    nmap <silent> <SPACE>lf <Plug>(coc-format)
+    nmap <silent> <SPACE>lr <Plug>(coc-rename)
+    nmap <silent> <SPACE>lj <Plug>(coc-diagnostic-next)
+    nmap <silent> <SPACE>lk <Plug>(coc-diagnostic-prev)
+
 '''
 
 [[plugins]]
