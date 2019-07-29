@@ -39,3 +39,16 @@ nmap <C-u> [denite]
 
 nnoremap [ale] <Nop>
 nmap <C-a> [ale]
+
+autocmd FileType php call s:my_php_mappings()
+function! s:my_php_mappings() abort
+    nnoremap <silent><C-d> :call <SID>DollarSign()<CR>
+endfunction
+
+function! s:DollarSign() abort
+    let pos_col = col('.')
+    if pos_col != 1
+        execute ":normal! b"
+    endif
+    execute ":normal! i" . '$'
+endfunction
