@@ -27,8 +27,11 @@ noremap <C-k> 10k
 nnoremap ; :
 nnoremap : ;
 
-"インサートモード
+"insert to normal
 inoremap <silent> jj <ESC>:<C-u>w<CR>
+
+"TODO leaderが効かない
+let g:mapleader = ","
 
 "key mapping
 nnoremap [markdownpreview] <Nop>
@@ -40,6 +43,7 @@ nmap <C-u> [denite]
 "nerdtreeだとmappingが効かない
 nnoremap [nerd] <Nop>
 nmap <C-n> [nerd]
+"key mapping
 
 
 autocmd FileType php call s:my_php_mappings()
