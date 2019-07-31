@@ -28,6 +28,16 @@ hook_source = '''
     nmap <silent> <SPACE>lj <Plug>(coc-diagnostic-next)
     nmap <silent> <SPACE>lk <Plug>(coc-diagnostic-prev)
 
+    function! s:check_back_space() abort
+        let col = col('.') - 1
+        return !col || getline('.')[col - 1]  =~ '\s'
+    endfunction
+
+    inoremap <silent><expr> <C-n>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "" :
+      \ coc#refresh()
+
 '''
 
 [[plugins]]
@@ -51,6 +61,11 @@ hook_add = '''
 
 [[plugins]]
 repo = 'scrooloose/nerdtree'
+hook_source = '''
+  "nerdtreeは範囲指定の数字不要なのでC-u不要
+  nnoremap <silent> [nerd]o :NERDTree<CR>
+'''
+
 
 [[plugins]]
 repo = 'Shougo/denite.nvim'
@@ -85,6 +100,7 @@ hook_add='''
     nnoremap <silent> [denite]f :<C-u>Denite file/rec -start-filter<CR>
     nnoremap <silent> [denite]p :<C-u>DeniteProjectDir file/rec -start-filter<CR>
     nnoremap <silent> [denite]b :<C-u>Denite buffer -start-filter<CR>
+
 '''
 
 [[plugins]]

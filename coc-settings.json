@@ -2,5 +2,9 @@
     "coc.source.word.enable": false,
     "tabnine.triggers": [
         "."
-    ]
+    ],
+    "suggest.autoTrigger": "none",
+    "highlight.colors.enable": true,
+    "highlight.document.enable": true
+    
 }
