@@ -29,17 +29,29 @@ hook_source = '''
     "nmap <silent> <Space>lt <Plug>(coc-type-definition)
     nmap <silent> <Space>lj <Plug>(coc-diagnostic-next)
     nmap <silent> <Space>lk <Plug>(coc-diagnostic-prev)
-    vmap <silent> <Space>lf <Plug>(coc-format-selected)
+    vmap <silent> <Space>vf <Plug>(coc-format-selected)
+    imap <C-l> <Plug>(coc-snippets-expand)
+    vmap <C-j> <Plug>(coc-snippets-select)
+    let g:coc_snippet_next = '<c-j>'
+    let g:coc_snippet_prev = '<c-k>'
 
     function! s:check_back_space() abort
         let col = col('.') - 1
         return !col || getline('.')[col - 1]  =~ '\s'
     endfunction
 
+    "completion trigger
     inoremap <silent><expr> <C-n>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "" :
       \ coc#refresh()
+
+    "snippet completion trigger
+    inoremap <silent><expr> <C-j> 
+     \ pumvisible() ? coc#_select_confirm() :
+     \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump', ''])\<CR>" :
+     \ <SID>check_back_space() ? "":
+     \ coc#refresh()
 
 '''
 
@@ -97,12 +109,16 @@ hook_source='''
 '''
 hook_add='''
     nnoremap <silent> [denite]g :<C-u>Denite grep -buffer-name=search-buffer-denite<CR>
+    nnoremap <silent> [denite]w :<C-u>DeniteCursorWord grep  -buffer-name=search-buffer-denite<CR>
     nnoremap <silent> [denite]r :<C-u>Denite -resume -buffer-name=search-buffer-denite<CR>
     nnoremap <silent> [denite]n :<C-u>Denite -resume -buffer-name=search-buffer-denite -cursor-pos=+1 -immediately<CR>
     nnoremap <silent> [denite]p :<C-u>Denite -resume -buffer-name=search-buffer-denite -cursor-pos=-1 -immediately<CR>
-    nnoremap <silent> [denite]f :<C-u>Denite file/rec -start-filter<CR>
+    nnoremap <silent> [denite]f :<C-u>Denite file/rec -start-filter -buffer-name=search-file-denite<CR>
+    nnoremap <silent> [denite]F :<C-u>Denite file/rec -buffer-name=search-file-denite<CR>
+    nnoremap <silent> [denite]e :<C-u>Denite -resume -buffer-name=search-file-denite -start-filter<CR>
     nnoremap <silent> [denite]p :<C-u>DeniteProjectDir file/rec -start-filter<CR>
     nnoremap <silent> [denite]b :<C-u>Denite buffer -start-filter<CR>
+    nnoremap <silent> [denite]c :<C-u>Denite command_history -start-filter<CR>
 
 '''
 

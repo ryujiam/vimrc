@@ -3,7 +3,16 @@
     "tabnine.triggers": [
         "."
     ],
-    "suggest.autoTrigger": "none",
+    "html.filetypes": [
+        "html",
+        "php"
+    ],
+    "html.format.enable": true,
+    "html.validate.scripts": true,
+    "html.validate.styles": true,
+    "suggest.autoTrigger": "always",
     "highlight.colors.enable": true,
-    "highlight.document.enable": true
+    "highlight.document.enable": true,
+    "diagnostic.joinMessageLines": true
+    jfe
 }
