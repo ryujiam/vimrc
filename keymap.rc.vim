@@ -37,6 +37,9 @@ let g:mapleader = ","
 nnoremap [markdownpreview] <Nop>
 nmap m [markdownpreview]
 
+nnoremap [ale] <Nop>
+nmap <C-a> [ale]
+
 nnoremap [denite] <Nop>
 nmap <C-u> [denite]
 
