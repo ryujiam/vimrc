@@ -162,4 +162,9 @@ hook_source = '''
     nnoremap [markdownpreview]s :MarkdownPreview<CR>
     nnoremap [markdownpreview]q :MarkdownPreviewStop<CR>
 '''
+#formatter
+[[plugins]]
+repo = 'prettier/vim-prettier'
+build = 'yarn install'
+on_ft = ['php', 'python']
 

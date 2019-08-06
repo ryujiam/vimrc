@@ -13,6 +13,7 @@ set smartcase "大文字，小文字の混在のみ区別
 
 "tab,indent
 set expandtab "タブ入力を複数の空白入力に置き換え
+set tabstop=2
 set shiftwidth=4
 set autoindent
 set smartindent
