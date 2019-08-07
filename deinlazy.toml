@@ -181,6 +181,7 @@ repo = 'prettier/vim-prettier'
 build = 'yarn install'
 on_ft = ['php', 'python']
 
+#interactive scratchpad
 [[plugins]]
 repo = 'metakirby5/codi.vim'
 on_ft = ['php', 'javascript', 'python']
@@ -209,3 +210,7 @@ hook_source = '''
         autocmd FileType python,javascript,php call s:codi()
     augroup END
 '''
+
+#db
+[[plugins]]
+repo = 'vim-scripts/dbext.vim'
