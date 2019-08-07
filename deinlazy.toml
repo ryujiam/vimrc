@@ -181,3 +181,31 @@ repo = 'prettier/vim-prettier'
 build = 'yarn install'
 on_ft = ['php', 'python']
 
+[[plugins]]
+repo = 'metakirby5/codi.vim'
+on_ft = ['php', 'javascript', 'python']
+hook_add = '''
+    function! s:Codi() abort
+        let ft_to_ext = {
+            \ 'python'     : 'py',
+            \ 'javascript' : 'js',
+            \ 'php'        : 'php'
+        \ }
+        execute 'edit $HOME/.codi.' . ft_to_ext[&filetype]
+        execute 'Codi'
+    endfunction
+
+    command! -nargs=? NewCodi call s:Codi(<f-args>) 
+    nnoremap <silent> <Space>cdn :NewCodi<CR>
+'''
+
+hook_source = '''
+    function! s:codi() abort
+        nnoremap <buffer><silent> <Space>cdi :Codi<CR>
+        nnoremap <buffer><silent> <Space>cdt :Codi!!<CR>
+    endfunction
+    augroup my_codi
+        autocmd!
+        autocmd FileType python,javascript,php call s:codi()
+    augroup END
+'''
