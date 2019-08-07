@@ -44,7 +44,7 @@ hook_source = '''
 repo = 'autozimu/LanguageClient-neovim'
 rev = 'next'
 build = 'bash install.sh'
-on_ft = ['php', 'python', 'css', 'javascript']
+on_ft = ['php', 'python', 'css', 'javascript', 'sql']
 hook_add= '''
     set hidden
     let g:LanguageClient_autoStart = 1
@@ -70,18 +70,26 @@ hook_add= '''
         \ 'php': ['intelephense', '--stdio'], 
         \ 'python': ['pyls'],
         \ 'javascript': ['javascript-typescript-stdio'],
-        \ 'css': ['css-language-server', '--stdio']
+        \ 'css': ['css-language-server', '--stdio'],
+        \ 'sql': ['sql-language-server', 'up', '--method', 'stdio'],
         \ }
 '''
 
 [[plugins]]
 repo = 'gregsexton/MatchTag'
-on_ft = ['html', 'xhtml']
+on_ft = ['html', 'xhtml', 'php']
 
 [[plugins]]
 repo = 'nathanaelkane/vim-indent-guides'
+hook_add = '''
+    nnoremap <silent> <Space>ig :<C-u>IndentGuidesToggle<CR>
+'''
 hook_source='''
     let g:indent_guides_enable_on_vim_startup = 1
+    let g:indent_guides_exclude_filetypes = [
+    \ 'nerdtree',
+    \ 'help',
+    \ ]
 '''
 
 [[plugins]]
