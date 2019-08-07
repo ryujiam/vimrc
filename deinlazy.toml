@@ -44,7 +44,7 @@ hook_source = '''
 repo = 'autozimu/LanguageClient-neovim'
 rev = 'next'
 build = 'bash install.sh'
-on_ft = ['php', 'python']
+on_ft = ['php', 'python', 'css', 'javascript']
 hook_add= '''
     set hidden
     let g:LanguageClient_autoStart = 1
@@ -68,7 +68,9 @@ hook_add= '''
     let g:LanguageClient_serverCommands = {
         \ 'rust': ['rustup', 'run', 'stable', 'rls'],
         \ 'php': ['intelephense', '--stdio'], 
-        \ 'python': ['pyls']
+        \ 'python': ['pyls'],
+        \ 'javascript': ['javascript-typescript-stdio'],
+        \ 'css': ['css-language-server', '--stdio']
         \ }
 '''
 
