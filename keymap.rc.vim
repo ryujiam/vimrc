@@ -61,3 +61,7 @@ function! s:DollarSign() abort
     endif
     execute ":normal! i" . '$'
 endfunction
+
+"my plugin commmand 
+command! -nargs=+ CreateTable call table#CreateTable(<f-args>)
+command! -nargs=+ IncRange call increment#IncrementRange(<f-args>)
