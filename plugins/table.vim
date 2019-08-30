@@ -18,3 +18,4 @@ function! TableEcho() abort
 endfunction
 
 command! -nargs=0 TableEcho call TableEcho()
+command! -nargs=0 TableInit call table#_init()

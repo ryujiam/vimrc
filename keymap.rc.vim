@@ -1,4 +1,3 @@
-nnoremap s <Nop>
 nnoremap sj <C-w>j
 nnoremap sk <C-w>k
 nnoremap sl <C-w>l
@@ -61,3 +60,5 @@ function! s:DollarSign() abort
     endif
     execute ":normal! i" . '$'
 endfunction
+
+command! -nargs=? AddRowTable call table#AddRowTable(<f-args>)

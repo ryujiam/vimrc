@@ -13,6 +13,7 @@ class TestPlugin(object):
     @vim.function("table_move_init")
     def init(self, args):
         self.vim.vars['table#channel_id'] = self.vim.channel_id
+        self.vim.current.buffer.append(self.vim.channel_id)
 
     @vim.rpc_export("table_move_mode")
     def table_move_mode(self, args):
@@ -21,4 +22,4 @@ class TestPlugin(object):
 
     @vim.command("TableSample")
     def test_command(self, args):
-        self.vim.current.
+        self.vim.current.buffer

@@ -15,11 +15,58 @@ function! table#CreateTable(...) abort
     exe ':TableFormat'
 endfunction
 
-function s:init() abort
+function! table#AddRowTable(...) abort
+    let row_pos = getpos('.')[1]
+    if a:0 == 0
+        let row = 1
+    else
+        let row = a:1
+    endif
+
+    let ran = s:search_table(row_pos)
+    echo ran
+
+    if ran[1] != 0 && ran[3] != 0
+        call s:append_row(ran[2] + 1, ran[3])
+    endif
+    exe ':TableFormat'
+endfunction
+
+function! s:search_table(row) abort 
+    let cur_row = getpos('.')[1]
+
+    "カーソル行含めて探索
+    let up_range = s:search_next_line(cur_row, -1)
+    let down_range = s:search_next_line(cur_row, 1)
+
+    return up_range + down_range
+endfunction
+
+"最後の探索のみを考慮
+function! s:search_next_line(row, dir)
+    let n_row = a:row
+    let num_matches = 0
+    let info = [n_row, num_matches]
+
+    while n_row > 0
+        let num_matches = len(split(getline(n_row), '|', 1)) - 2
+        if num_matches < 2
+            break
+        endif
+
+        let info = [n_row, num_matches]
+        let n_row += a:dir
+    endwhile
+
+    return info
+endfunction
+
+
+function! s:init() abort
     let s:first_pos = getpos('.')
 endfunction
 
-function s:create_header(col, cur_row) abort
+function! s:create_header(col, cur_row) abort
     call s:append_row(a:cur_row, a:col)
     call s:append_row(a:cur_row + 1, a:col)
 endfunction
