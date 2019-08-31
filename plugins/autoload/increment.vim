@@ -8,7 +8,7 @@ function! increment#IncrementRange(...) abort
 
     let val = a:1
     while val <= a:2
-        let line = s:appendVal(getline(row), val, col)
+        let line = increment#appendVal(getline(row), val, col)
         call setline(row, line)
         let val += 1
         let row += 1
@@ -16,7 +16,7 @@ function! increment#IncrementRange(...) abort
 endfunction
 
 
-function! s:appendVal(line, val, col) abort
+function! increment#appendVal(line, val, col) abort
     if a:col == 1
         return a:val . a:line
     endif

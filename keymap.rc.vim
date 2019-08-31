@@ -62,6 +62,7 @@ function! s:DollarSign() abort
 endfunction
 
 command! -nargs=? AddRowTable call table#AddRowTable(<f-args>)
+command! -nargs=? AddColTable call table#AddColTable(<f-args>)
 "my plugin commmand 
 command! -nargs=+ CreateTable call table#CreateTable(<f-args>)
 command! -nargs=+ IncRange call increment#IncrementRange(<f-args>)

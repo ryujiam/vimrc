@@ -19,7 +19,7 @@ function! table#AddRowTable(...) abort
     let row_pos = getpos('.')[1]
     if a:0 == 0
         let row = 1
-    else
+    elseif a:0 == 1
         let row = a:1
     endif
 
@@ -27,9 +27,42 @@ function! table#AddRowTable(...) abort
     echo ran
 
     if ran[1] != 0 && ran[3] != 0
-        call s:append_row(ran[2] + 1, ran[3])
+        let next_row = ran[2] + 1
+        for i in range(row)
+            call s:append_row(next_row, ran[3])
+            let next_row += 1
+        endfor
     endif
     exe ':TableFormat'
+endfunction
+
+function! table#AddColTable(...) abort
+    let row_pos = getpos('.')[1]
+    if a:0 == 0
+        let add_col_num = 1
+    elseif a:0 == 1
+        let add_col_num = a:1
+    endif
+    let ran = s:search_table(row_pos)
+    echo ran
+
+    if ran[1] != 0 && ran[3] != 0
+        let num_row = ran[2] - ran[0] - 1
+        let next_col = strridx(getline(ran[0]), '|') + 2
+        for i in range(add_col_num)
+            let row = ran[0]
+            "headerと|--|を含む
+            for j in range(num_row + 2)
+                let line  = increment#appendVal(getline(row), '|', next_col)
+                call setline(row, line)
+                let row += 1
+            endfor
+            let next_col += 1
+        endfor
+    endif
+
+    exe ':TableFormat'
+
 endfunction
 
 function! s:search_table(row) abort 
