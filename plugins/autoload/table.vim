@@ -44,25 +44,34 @@ function! table#AddColTable(...) abort
         let add_col_num = a:1
     endif
     let ran = s:search_table(row_pos)
-    echo ran
 
+    echo 'col' . s:find_nth_col(getline('.'), 3)
     if ran[1] != 0 && ran[3] != 0
         let num_row = ran[2] - ran[0] - 1
-        let next_col = strridx(getline(ran[0]), '|') + 2
-        for i in range(add_col_num)
+        for i_col in range(add_col_num)
             let row = ran[0]
             "headerと|--|を含む
             for j in range(num_row + 2)
-                let line  = increment#appendVal(getline(row), '|', next_col)
+                let appended_col = s:find_nth_col(getline(row), ran[3]) + (i_col + 1)
+                let line  = increment#appendVal(getline(row), '|', appended_col)
                 call setline(row, line)
                 let row += 1
             endfor
-            let next_col += 1
         endfor
     endif
 
     exe ':TableFormat'
 
+endfunction
+
+function! s:find_nth_col(line, n)
+    let k_idx = stridx(a:line, "|")
+
+    for i in range(a:n)
+        let k_idx = stridx(a:line, "|", k_idx + 1)
+    endfor
+
+    return k_idx + 1
 endfunction
 
 function! s:search_table(row) abort 
