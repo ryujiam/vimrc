@@ -24,7 +24,6 @@ function! table#AddRowTable(...) abort
     endif
 
     let ran = s:search_table(row_pos)
-    echo ran
 
     if ran[1] != 0 && ran[3] != 0
         let next_row = ran[2] + 1
@@ -45,14 +44,14 @@ function! table#AddColTable(...) abort
     endif
     let ran = s:search_table(row_pos)
 
-    echo 'col' . s:find_nth_col(getline('.'), 3)
+    let cur_cell =  s:find_cur_table()
     if ran[1] != 0 && ran[3] != 0
         let num_row = ran[2] - ran[0] - 1
         for i_col in range(add_col_num)
             let row = ran[0]
             "headerと|--|を含む
             for j in range(num_row + 2)
-                let appended_col = s:find_nth_col(getline(row), ran[3]) + (i_col + 1)
+                let appended_col = s:find_nth_col(getline(row), cur_cell[1]) + (i_col + 1)
                 let line  = increment#appendVal(getline(row), '|', appended_col)
                 call setline(row, line)
                 let row += 1
@@ -61,6 +60,33 @@ function! table#AddColTable(...) abort
     endif
 
     exe ':TableFormat'
+
+endfunction
+
+function! s:find_cur_table()
+    "test
+    let ran = s:search_table(0)
+
+    if ran[1] == 0 && ran[3] == 0
+        return []
+    endif
+
+    let r_cell = getpos('.')[1] - ran[0] - 1
+    let c_cell = s:find_col_cell(getline('.'), getpos('.')[2])
+
+    return [r_cell, c_cell]
+endfunction
+
+function! s:find_col_cell(line, col_pos)
+    let k_idx = stridx(a:line, "|")
+    let i = 0
+
+    while k_idx <= a:col_pos
+        let k_idx = stridx(a:line, "|", k_idx + 1)
+        let i += 1
+    endwhile
+
+    return i
 
 endfunction
 
