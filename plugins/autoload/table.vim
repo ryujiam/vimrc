@@ -63,6 +63,23 @@ function! table#AddColTable(...) abort
 
 endfunction
 
+function! table#DelCell() abort
+    let s = split(getline('.'), '|')
+
+    let c_cell = s:find_col_cell(getline('.'), getpos('.')[2])
+    echo c_cell
+    let s[c_cell - 1] = ' '
+
+    let s[0] = '|' . s[0]
+    let last_i = len(s)
+    let s[last_i - 1] = s[last_i - 1] . '|'
+
+    call setline(getpos('.')[1], join(s, '|'))
+
+    exe ':TableFormat'
+
+endfunction
+
 function! s:find_cur_table()
     "test
     let ran = s:search_table(0)
