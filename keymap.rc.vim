@@ -41,6 +41,8 @@ nmap <C-a> [ale]
 
 nnoremap [denite] <Nop>
 nmap <C-u> [denite]
+vnoremap [denite_v] <Nop>
+vmap <C-u> [denite_v]
 
 "nerdtreeだとmappingが効かない
 nnoremap [nerd] <Nop>
