@@ -105,3 +105,11 @@ repo = "tpope/vim-fugitive"
 
 [[plugins]]
 repo = "tpope/vim-surround"
+
+[[plugins]]
+repo = "deton/jasegment.vim"
+hook_add = '''
+    let g:jasegment#model = 'cabocha'
+    let g:jasegment#cabocha#cmd = '/usr/local/bin/cabocha'
+    let g:jasegment#mecab#cmd = '/usr/bin/mecab'
+'''

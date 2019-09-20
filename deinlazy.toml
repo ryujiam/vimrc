@@ -165,6 +165,7 @@ repo = 'godlygeek/tabular'
 repo = 'plasticboy/vim-markdown'
 on_ft = ['markdown']
 hook_source = '''
+    nnoremap <silent> <Space>mtt :TableFormat<CR>
 '''
 
 [[plugins]]
@@ -214,3 +215,24 @@ hook_source = '''
 #db
 [[plugins]]
 repo = 'vim-scripts/dbext.vim'
+on_if = "has('nvim')"
+hook_source = '''
+    let g:local_dir = expand($HOME . '/.config' . '/local_nvim/autoload')
+    echo isdirectory(g:local_dir)
+    if isdirectory(g:local_dir) 
+        execute 'source ' . fnamemodify(g:local_dir . '/settings/plugin.vim', ':p')
+    endif
+    call settings#plugin#dbext()
+'''
+
+#subversion
+[[plugins]]
+repo = 'mhinz/vim-signify'
+hook_source = '''
+    let g:signify_vcs_list = ['svn']
+'''
+hook_add = '''
+    nnoremap <silent> <Space>vs :SignifyDisable<CR>
+    nnoremap <silent> <Space>vt :SignifyToggleHighlight<CR>
+    nnoremap <silent> <Space>vd :SignifyDiff[!]<CR>
+'''
