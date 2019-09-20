@@ -24,7 +24,6 @@ function! table#AddRowTable(...) abort
     endif
 
     let ran = s:search_table(row_pos)
-    echo ran
 
     if ran[1] != 0 && ran[3] != 0
         let next_row = ran[2] + 1
@@ -44,25 +43,78 @@ function! table#AddColTable(...) abort
         let add_col_num = a:1
     endif
     let ran = s:search_table(row_pos)
-    echo ran
 
+    let cur_cell =  s:find_cur_table()
     if ran[1] != 0 && ran[3] != 0
         let num_row = ran[2] - ran[0] - 1
-        let next_col = strridx(getline(ran[0]), '|') + 2
-        for i in range(add_col_num)
+        for i_col in range(add_col_num)
             let row = ran[0]
             "headerと|--|を含む
             for j in range(num_row + 2)
-                let line  = increment#appendVal(getline(row), '|', next_col)
+                let appended_col = s:find_nth_col(getline(row), cur_cell[1]) + (i_col + 1)
+                let line  = increment#appendVal(getline(row), '|', appended_col)
                 call setline(row, line)
                 let row += 1
             endfor
-            let next_col += 1
         endfor
     endif
 
     exe ':TableFormat'
 
+endfunction
+
+function! table#DelCell() abort
+    let s = split(getline('.'), '|')
+
+    let c_cell = s:find_col_cell(getline('.'), getpos('.')[2])
+    echo c_cell
+    let s[c_cell - 1] = ' '
+
+    let s[0] = '|' . s[0]
+    let last_i = len(s)
+    let s[last_i - 1] = s[last_i - 1] . '|'
+
+    call setline(getpos('.')[1], join(s, '|'))
+
+    exe ':TableFormat'
+
+endfunction
+
+function! s:find_cur_table()
+    "test
+    let ran = s:search_table(0)
+
+    if ran[1] == 0 && ran[3] == 0
+        return []
+    endif
+
+    let r_cell = getpos('.')[1] - ran[0] - 1
+    let c_cell = s:find_col_cell(getline('.'), getpos('.')[2])
+
+    return [r_cell, c_cell]
+endfunction
+
+function! s:find_col_cell(line, col_pos)
+    let k_idx = stridx(a:line, "|")
+    let i = 0
+
+    while k_idx <= a:col_pos
+        let k_idx = stridx(a:line, "|", k_idx + 1)
+        let i += 1
+    endwhile
+
+    return i
+
+endfunction
+
+function! s:find_nth_col(line, n)
+    let k_idx = stridx(a:line, "|")
+
+    for i in range(a:n)
+        let k_idx = stridx(a:line, "|", k_idx + 1)
+    endfor
+
+    return k_idx + 1
 endfunction
 
 function! s:search_table(row) abort 

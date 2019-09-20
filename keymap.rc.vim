@@ -41,6 +41,8 @@ nmap <C-a> [ale]
 
 nnoremap [denite] <Nop>
 nmap <C-u> [denite]
+vnoremap [denite_v] <Nop>
+vmap <C-u> [denite_v]
 
 "nerdtreeだとmappingが効かない
 nnoremap [nerd] <Nop>
@@ -63,6 +65,7 @@ endfunction
 
 command! -nargs=? AddRowTable call table#AddRowTable(<f-args>)
 command! -nargs=? AddColTable call table#AddColTable(<f-args>)
+command!  DelCell call table#DelCell()
 "my plugin commmand 
 command! -nargs=+ CreateTable call table#CreateTable(<f-args>)
 command! -nargs=+ IncRange call increment#IncrementRange(<f-args>)

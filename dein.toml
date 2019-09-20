@@ -113,3 +113,6 @@ hook_add = '''
     let g:jasegment#cabocha#cmd = '/usr/local/bin/cabocha'
     let g:jasegment#mecab#cmd = '/usr/bin/mecab'
 '''
+
+[[plugins]]
+repo = "scrooloose/nerdcommenter"
