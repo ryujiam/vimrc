@@ -10,7 +10,7 @@ class TestPlugin(object):
         self.table_range = ()
         self.table_cur = ()
 
-    @vim.function("table_move_init")
+    @vim.function("table_move_init", sync=True)
     def init(self, args):
         self.vim.vars['table#channel_id'] = self.vim.channel_id
         self.vim.current.buffer.append(self.vim.channel_id)
