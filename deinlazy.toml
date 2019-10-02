@@ -26,6 +26,12 @@ if = "has('nvim')"
 
     '''
 
+[[plugins]]
+repo='deoplete-plugins/deoplete-zsh'
+depends = 'deoplete.nvim'
+on_ft = 'zsh'
+on_event='InsertEnter'
+
 #html
 [[plugins]]
 repo = 'mattn/emmet-vim'
@@ -240,3 +246,12 @@ hook_add = '''
 
 [[plugins]]
 repo = 'itchyny/calendar.vim'
+
+[[plugins]]
+repo = 'Shougo/deol.nvim'
+if = "has('nvim')"
+hook_add = '''
+    tnoremap <silent> <C-[> <C-\><C-n>
+    nnoremap <silent> <C-m>s :Deol -split=horizontally<CR>
+    nnoremap <silent> <C-m>v :Deol -split=vertically<CR>
+'''
