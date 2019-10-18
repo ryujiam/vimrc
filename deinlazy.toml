@@ -227,7 +227,6 @@ repo = 'vim-scripts/dbext.vim'
 on_if = "has('nvim')"
 hook_source = '''
     let g:local_dir = expand($HOME . '/.config' . '/local_nvim/autoload')
-    echo isdirectory(g:local_dir)
     if isdirectory(g:local_dir) 
         execute 'source ' . fnamemodify(g:local_dir . '/settings/plugin.vim', ':p')
     endif

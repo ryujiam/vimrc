@@ -65,7 +65,9 @@ endfunction
 
 command! -nargs=? AddRowTable call table#AddRowTable(<f-args>)
 command! -nargs=? AddColTable call table#AddColTable(<f-args>)
-command!  DelCell call table#DelCell()
 "my plugin commmand 
 command! -nargs=+ CreateTable call table#CreateTable(<f-args>)
 command! -nargs=+ IncRange call increment#IncrementRange(<f-args>)
+
+nnoremap <silent> <Space>mdd :<C-u>call table#DelCell(0)<CR>
+vnoremap <silent> <Space>mdd :<C-u>call table#DelCell(1)<CR>

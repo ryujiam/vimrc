@@ -63,18 +63,31 @@ function! table#AddColTable(...) abort
 
 endfunction
 
-function! table#DelCell() abort
-    let s = split(getline('.'), '|')
+function! table#DelCell(isvisual) abort
 
-    let c_cell = s:find_col_cell(getline('.'), getpos('.')[2])
-    echo c_cell
-    let s[c_cell - 1] = ' '
+    let t_cell = []
+    if a:isvisual
+        let d_range = range(getpos("'<")[1], getpos("'>")[1])
+        for i in d_range
+            let c_cell_range = s:find_col_cell(getline(i), getpos("'<")[2], getpos("'>")[2])
+            call add(t_cell, c_cell_range)
+        endfor
+    else
+        let d_range = [line('.')]
+        let c_cell_range = s:find_col_cell(getline('.'), getpos('.')[2])
+        call add(t_cell, c_cell_range)
+    endif
 
-    let s[0] = '|' . s[0]
-    let last_i = len(s)
-    let s[last_i - 1] = s[last_i - 1] . '|'
-
-    call setline(getpos('.')[1], join(s, '|'))
+    for i in range(len(d_range))
+        let cell = split(getline(d_range[i]), '|')
+        for c_n in t_cell[i]
+            let cell[c_n - 1] = ' '
+        endfor
+        let last_i = len(cell)
+        let cell[0] = '|' . cell[0]
+        let cell[last_i - 1] = cell[last_i - 1] . '|'
+        call setline(d_range[i], join(cell, '|'))
+    endfor
 
     exe ':TableFormat'
 
@@ -89,21 +102,33 @@ function! s:find_cur_table()
     endif
 
     let r_cell = getpos('.')[1] - ran[0] - 1
-    let c_cell = s:find_col_cell(getline('.'), getpos('.')[2])
+    let c_cell = s:find_col_cell(getline('.'), getpos('.')[2])[0]
 
     return [r_cell, c_cell]
 endfunction
 
-function! s:find_col_cell(line, col_pos)
+function! s:find_col_cell(line, ...)
+    let col = []
     let k_idx = stridx(a:line, "|")
     let i = 0
 
-    while k_idx <= a:col_pos
-        let k_idx = stridx(a:line, "|", k_idx + 1)
-        let i += 1
-    endwhile
+    if a:0 == 1
+        while k_idx >= 0 && k_idx <= a:1
+            let k_idx = stridx(a:line, "|", k_idx + 1)
+            let i += 1
+            let col = [i]
+        endwhile
+    else
+        while k_idx >= 0 && k_idx <= a:2 
+            let k_idx = stridx(a:line, "|", k_idx + 1)
+            let i += 1
+            if k_idx >= a:1
+                call add(col, i)
+            endif
+        endwhile
+    endif
 
-    return i
+    return col
 
 endfunction
 
