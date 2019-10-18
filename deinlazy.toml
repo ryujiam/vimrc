@@ -112,6 +112,7 @@ hook_add = '''
 
 [[plugins]]
 repo = 'scrooloose/nerdtree'
+if = "has('nvim')"
 hook_source = '''
   "nerdtreeは範囲指定の数字不要なのでC-u不要
   nnoremap <silent> [nerd]o :NERDTree<CR>
@@ -253,6 +254,6 @@ repo = 'Shougo/deol.nvim'
 if = "has('nvim')"
 hook_add = '''
     tnoremap <silent> <C-[> <C-\><C-n>
-    nnoremap <silent> <C-m>s :Deol -split=horizontally<CR>
-    nnoremap <silent> <C-m>v :Deol -split=vertically<CR>
+    nnoremap <silent> <C-m>s :Deol -edit -split=horizontally<CR>
+    nnoremap <silent> <C-m>v :Deol -edit -split=vertically<CR>
 '''
