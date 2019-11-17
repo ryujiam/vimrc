@@ -246,6 +246,45 @@ hook_source = '''
     endif
     call settings#plugin#dbext()
 '''
+hook_add = '''
+    vnoremap <silent> <Leader>jj :<C-u>call s:ViewRow()<CR>
+
+    function! s:ViewRow() abort
+        let row = []
+        let bind_n = []
+        let s = getpos("'<")[1]
+        let e = getpos("'>")[1]
+
+        for i in range(s, e)
+            call add(row, getline(i))
+        endfor
+
+        call add(bind_n, bufnr(''))
+        setlocal nowrap
+        exe 'silent split table-row'
+        call add(bind_n, bufnr(''))
+        setlocal buftype=nofile
+        setlocal bufhidden=delete
+        setlocal noswapfile
+        setlocal nobuflisted
+        setlocal nomodeline
+        for i in range(len(row))
+            call append(i, row[i])
+        endfor
+        setlocal nomodifiable
+        setlocal nowrap
+
+        for n in bind_n
+            call setwinvar(n, '&cursorbind', 1)
+        endfor
+
+        resize 1
+        for i in range(len(row) - 1)
+            resize +1
+        endfor
+
+    endfunction
+'''
 
 #subversion
 [[plugins]]

@@ -93,6 +93,43 @@ function! table#DelCell(isvisual) abort
 
 endfunction
 
+function table#ViewRow() abort
+
+    let row = []
+    let bind_n = []
+    let s = getpos("'<")[1]
+    let e = getpos("'>")[1]
+
+    for i in range(s, e)
+        call add(row, getline(i))
+    endfor
+
+    call add(bind_n, bufnr(''))
+    setlocal nowrap
+    exe 'silent split table-row'
+    call add(bind_n, bufnr(''))
+    setlocal buftype=nofile
+    setlocal bufhidden=delete
+    setlocal noswapfile
+    setlocal nobuflisted
+    setlocal nomodeline
+    for i in range(len(row))
+        call append(i, row[i])
+    endfor
+    setlocal nomodifiable
+    setlocal nowrap
+
+    for n in bind_n
+        call setwinvar(n, '&cursorbind', 1)
+    endfor
+
+    resize 1
+    for i in range(len(row) - 1)
+        resize +1
+    endfor
+
+endfunction
+
 function! s:find_cur_table()
     "test
     let ran = s:search_table(0)
