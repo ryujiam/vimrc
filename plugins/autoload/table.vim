@@ -35,6 +35,13 @@ function! table#AddRowTable(...) abort
     exe ':TableFormat'
 endfunction
 
+"TODO 切り替えできるように
+function! table#ToggleFormat() abort
+    let ran = s:search_table(getpos('.')[1])
+    exe ':' . ran[0] . ',' . ran[2] . 's/\v\|\s+/\|/g'
+    exe ':' . ran[0] . ',' . ran[2] . 's/\v\s+\|/\|/g'
+endfunction
+
 function! table#AddColTable(...) abort
     let row_pos = getpos('.')[1]
     if a:0 == 0

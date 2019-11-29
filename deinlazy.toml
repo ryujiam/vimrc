@@ -71,6 +71,11 @@ hook_add= '''
         autocmd!
         autocmd FileType * call s:lsp()
     augroup END
+    if has('mac')
+        let s:conf_os = '/config_mac'
+    elseif has('unix')
+        let s:conf_os = '/config_linux'
+    endif
     let g:LanguageClient_serverCommands = {
         \ 'rust': ['rustup', 'run', 'stable', 'rls'],
         \ 'php': ['intelephense', '--stdio'], 
@@ -89,7 +94,7 @@ hook_add= '''
                 \ '-jar',
                 \ expand('~/lsp/eclipse.jdt.ls/plugins/org.eclipse.equinox.launcher_1.5.300.v20190213-1655.jar'),
                 \ '-configuration',
-                \ expand('~/lsp/eclipse.jdt.ls/config_mac'),
+                \ expand('~/lsp/eclipse.jdt.ls' . s:conf_os),
                 \ '-data',
                 \ getcwd()
                 \]
