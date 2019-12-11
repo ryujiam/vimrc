@@ -72,3 +72,4 @@ command! -nargs=+ IncRange call increment#IncrementRange(<f-args>)
 nnoremap <silent> <Space>mdd :<C-u>call table#DelCell(0)<CR>
 vnoremap <silent> <Space>mdd :<C-u>call table#DelCell(1)<CR>
 nnoremap <silent> <Leader>mtt :<C-u>call table#ToggleFormat()<CR>
+vnoremap <silent> <Space>mjj :<C-u>call table#ViewRow()<CR>

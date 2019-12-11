@@ -17,6 +17,7 @@ set tabstop=2
 set shiftwidth=4
 set autoindent
 set smartindent
+set relativenumber "相対行表示
 
 "カラースキーム
 syntax on
